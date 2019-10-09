@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-resource.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="get" @click="setGet">
+        <input type="button" value="post" @click="setPost">
+        <input type="button" value="jsonp" @click="setJson">
+    </div>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            methods: {
+                setGet(){
+                    this.$http.get('http://www.baidu.com/').then(function(result){
+                        console.log(result)
+                    }).catch((e) => {})
+                },
+                setPost(){
+                    this.$http.post('http://vue.studyit.io/api/post',{},{emulateJSON:true}).then(function(result){
+                        console.log(result)
+                    }).catch((e) => {})
+                },
+                setJson(){
+                    this.$http.post('http://vue.studyit.io/api/jsonp').then(function(result){
+                        console.log(result)
+                    }).catch((e) => {})
+                }
+            },
+        })
+    </script>
+</body>
+</html>

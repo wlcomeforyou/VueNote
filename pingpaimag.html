@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        .header{
+            width: 100%;
+            height:120px;
+            border: 1px solid cornflowerblue;
+        }
+        .header_cont{
+            height: 50px;
+            color: white;
+            background-color: cornflowerblue;
+        }
+        .header_input{
+            height: 70px;
+        }
+        .header_input input{
+            margin: 25px auto;
+            height: 20px;
+        }
+        .header_input input[type=button]{
+            background-color: blue;
+            color: white;
+            height: 24px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="header_cont">添加品牌</div>
+            <div class="header_input">
+                id: <input type="text" v-model="id">
+                Name: <input type="text" v-model="name">
+                <input type="button" value="添加" @click="add">
+                搜索名称关键字： <input type="text"  v-focus>
+            </div>
+        </div>
+        <table>
+            <th>
+                <td>Id</td>
+                <td>品牌名称</td>
+                <td>添加时间</td>
+                <td>操作</td>
+            </th>
+            <tr v-for="(item,i) in list">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime}}</td>
+                <td><a href="javascript:void(0)" @click="del(item.id)">删除</a></td>
+            </tr>
+        </table>
+        <span>{{time}}</span>
+    </div>
+    <script>
+        Vue.directive('focus',{
+            inserted:function(el){
+                el.focus();
+            }
+        })
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                id:'',
+                name:'',
+                time:new Date(),
+                list:[
+                    {id:1,name:'雷克萨斯',ctime:new Date()},
+                    {id:2,name:'凯迪拉克',ctime:new Date()},
+                    {id:3,name:'Jeep自由光',ctime:new Date()},
+                    {id:4,name:'Jeep探险者',ctime:new Date()}
+                ]
+            },
+            directives:{
+
+            },
+            methods:{
+                del(id){
+                    this.list.some((item,i) => {
+                        if(item.id == id){
+                            this.list.splice(i,1)
+                            return true;
+                        }
+                    })
+                },
+                add(){
+                    this.list.unshift({id:this.id,name:this.name,ctime:this.time})
+                }
+            }
+        })
+    </script>
+</body>
+</html>

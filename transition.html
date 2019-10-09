@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .v-enter,.v-leave-to{
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        .v-enter-active,.v-leave-active{
+            transition: all 2s ease;
+        }
+        .h6-enter,.h6-leave-to{
+            opacity: 0;
+            transform: translateY(200px);
+        }
+        .h6-enter-active,.h6-leave-active{
+            transition: all 2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="x方向" @click="flag=!flag">
+        <transition>
+            <h3 v-if="flag" >啦啦啦啦啦啦</h3>
+        </transition>
+        <hr>
+        <input type="button" value="y方向" @click="flag2=!flag2">
+        <transition name="h6">
+            <h6 v-if="flag2" >啦啦啦啦啦啦</h6>
+        </transition>
+    </div>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                flag:false,
+                flag2:false
+            }
+        })
+    </script>
+</body>
+</html>
